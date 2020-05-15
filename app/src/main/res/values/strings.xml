@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Final RideApp</string>
+    <string name="royalBike">Do you have a Royal Bike</string>
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+    <string name="avatar">to make it more cool select your avatar</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="reset">Reset</string>
+
+
+    <string name="home_button">CREATE A TRIP</string>
+    <string name="home_text">Welcome Aboard</string>
+    <string name="home_subtext">You do not have any trips at this moment</string>
+    <string name="trips">Trips</string>
+    <string name="my_garage">My Garage</string>
+    <string name="my_activities">My Activities</string>
+    <string name="profile">My Profile</string>
+    <string name="more">More</string>
+    <string name="nextServiceDue">Next Service Due</string>
+    <string-array name="service_types_array">
+        <item>Service Type</item>
+        <item>Free service</item>
+        <item>General service</item>
+        <item>Breakdown assistance</item>
+    </string-array>
+    <string name="findDealerButton">Find A Dealer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
