@@ -11,10 +11,13 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.finalrideapp.R
 import com.example.finalrideapp.databinding.ActivityRegisterBinding
 import com.example.finalrideapp.model.db.AppDatabase
+import com.example.finalrideapp.model.network.ApiClient
 import com.example.finalrideapp.model.network.MyApi
 import com.example.finalrideapp.model.network.NetworkConnectionInterceptor
+import com.example.finalrideapp.model.preferences.PreferenceProvider
+import com.example.finalrideapp.model.repositories.NewUserRepository
 import com.example.finalrideapp.model.repositories.UserRepository
-import com.example.finalrideapp.viewmodel.AuthViewModelFactory
+import com.example.finalrideapp.viewmodel.RegisterViewModelFactory
 import com.example.finalrideapp.viewmodel.RegisterViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 
@@ -26,11 +29,12 @@ class Register : AppCompatActivity(), AuthListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
-        val api = MyApi(networkConnectionInterceptor)
+        //val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
+        val api = ApiClient(this)
         val db = AppDatabase(this)
-        val repository = UserRepository(api, db)
-        val factory = AuthViewModelFactory(repository)
+        val prefs = PreferenceProvider(this)
+        val repository = NewUserRepository(api, db, prefs)
+        val factory = RegisterViewModelFactory(repository)
 
         viewModel = ViewModelProviders.of(this, factory).get(RegisterViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
@@ -42,11 +46,6 @@ class Register : AppCompatActivity(), AuthListener {
         setSupportActionBar(registerToolbar)
         supportActionBar?.title = "Register"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        btnRegister.setOnClickListener {
-            val nextLoginPage = Intent(this, Login::class.java)
-            startActivity(nextLoginPage)
-        }
 
     }
 
@@ -76,11 +75,13 @@ class Register : AppCompatActivity(), AuthListener {
     }
 
     override fun onSuccess() {
-        Toast.makeText(this, "successfully registered", Toast.LENGTH_LONG).show()
+        //Toast.makeText(this, "successfully registered", Toast.LENGTH_LONG).show()
         //Log.d("token",token)
 
-        val nextLoginPage = Intent(this, Login::class.java)
-        startActivity(nextLoginPage)
+        val register = "Register"
+        val nextOtpPage = Intent(this, OtpVerify::class.java)
+        nextOtpPage.putExtra("backActivity", register)
+        startActivity(nextOtpPage)
     }
 
     override fun onFailure(message: String) {

@@ -24,4 +24,8 @@ class AppTourCopy : AppCompatActivity() {
             startActivity(nextLoginPage)
         }
     }
+
+    override fun onBackPressed() {
+
+    }
 }

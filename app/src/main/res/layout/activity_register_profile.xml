@@ -116,8 +116,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/page44"
-                        android:onClick="@{()->registerProfileViewModel.galaryClick()}"/>
+                        android:src="@drawable/page44" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -144,8 +143,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/photocamera44"
-                        android:onClick="@{()->registerProfileViewModel.cameraClick()}"/>
+                        android:src="@drawable/photocamera44" />
 
                     <TextView
                         android:layout_width="wrap_content"

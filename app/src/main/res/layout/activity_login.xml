@@ -104,7 +104,8 @@
                 android:paddingRight="17dp"
                 android:text="Forgot Password"
                 android:textColor="#EF8B40"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:onClick="@{()->loginViewModel.forgotPasswordOnClick()}"/>
 
         </LinearLayout>
 

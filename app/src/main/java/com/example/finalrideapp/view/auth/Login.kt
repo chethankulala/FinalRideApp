@@ -11,15 +11,15 @@ import androidx.lifecycle.ViewModelProviders
 import com.example.finalrideapp.R
 import com.example.finalrideapp.databinding.ActivityLoginBinding
 import com.example.finalrideapp.model.db.AppDatabase
+import com.example.finalrideapp.model.network.ApiClient
 import com.example.finalrideapp.model.network.MyApi
 import com.example.finalrideapp.model.network.NetworkConnectionInterceptor
+import com.example.finalrideapp.model.preferences.PreferenceProvider
+import com.example.finalrideapp.model.repositories.NewUserRepository
 import com.example.finalrideapp.model.repositories.UserRepository
-import com.example.finalrideapp.view.home.Home
 import com.example.finalrideapp.viewmodel.LoginViewModel
 import com.example.finalrideapp.viewmodel.LoginViewModelFactory
 import kotlinx.android.synthetic.main.activity_login.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class Login : AppCompatActivity(), AuthListener {
 
@@ -30,10 +30,10 @@ class Login : AppCompatActivity(), AuthListener {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_login)
 
-        val networkConnectionInterceptor = NetworkConnectionInterceptor(this)
-        val api = MyApi(networkConnectionInterceptor)
+        val api = ApiClient(this)
         val db = AppDatabase(this)
-        val repository = UserRepository(api, db)
+        val prefs = PreferenceProvider(this)
+        val repository = NewUserRepository(api, db, prefs)
         val loginFactory = LoginViewModelFactory(repository)
 
         viewModel = ViewModelProviders.of(this, loginFactory).get(LoginViewModel::class.java)
@@ -57,18 +57,24 @@ class Login : AppCompatActivity(), AuthListener {
 
  */
 
-
-
-        tvForgotPassword.setOnClickListener() {
-            val nextResetPage = Intent(this, ResetPassword::class.java)
-            startActivity(nextResetPage)
+    viewModel!!.forgotOnClick.observe(this, Observer {
+        if (it.toString() == "success") {
+            val nextOtpPage = Intent(this, OtpVerify::class.java)
+            val reset = "Reset"
+            nextOtpPage.putExtra("backActivity", reset)
+            startActivity(nextOtpPage)
         }
+    })
 
         tvLoginRegister.setOnClickListener() {
             val nextRegisterPage = Intent(this, Register::class.java)
             startActivity(nextRegisterPage)
         }
 
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
     }
 
 

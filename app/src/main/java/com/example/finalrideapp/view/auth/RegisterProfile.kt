@@ -15,6 +15,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.finalrideapp.R
+import com.example.finalrideapp.model.preferences.PreferenceProvider
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_register_profile.*
@@ -96,8 +97,9 @@ class RegisterProfile : AppCompatActivity() {
             }
 
         }
-    }
 
+
+    }
 
 
     private fun choosePhotoFromGallary() {
@@ -169,8 +171,9 @@ class RegisterProfile : AppCompatActivity() {
 
                 //lateinit var bundle: Bundle
                 //bundle.putString("picture", path)
+                PreferenceProvider(this).savePath(path)
                 val nextPage = Intent(this, RegisterProfileSuccess::class.java)
-                nextPage.putExtra("picture", path)
+                //nextPage.putExtra("picture", path)
                 startActivity(nextPage)
 
 
@@ -199,8 +202,9 @@ class RegisterProfile : AppCompatActivity() {
             val imagePath = saveImage(thumbnail)
             //Toast.makeText(this@MainActivity, "Image Saved!", Toast.LENGTH_SHORT).show()
 
+            PreferenceProvider(this).savePath(imagePath)
             val nextPage = Intent(this, RegisterProfileSuccess::class.java)
-            nextPage.putExtra("picture", imagePath)
+            //nextPage.putExtra("picture", imagePath)
             startActivity(nextPage)
 
             /*
@@ -260,5 +264,6 @@ class RegisterProfile : AppCompatActivity() {
     companion object {
         private val IMAGE_DIRECTORY = "/rideapp"
     }
+
 
 }

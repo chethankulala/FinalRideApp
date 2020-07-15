@@ -154,5 +154,5 @@
 </layout>
 
 <!--
-
+android:onClick="@{()->registerViewModel.registerOnClick()}"
 -->
